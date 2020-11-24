@@ -12,4 +12,4 @@ dataframe = gen_data()
 st.dataframe(dataframe)
 
 x = st.slider('x')  # 👈 this is a widget
-st.write(x, 'squared is', x * x)
+st.write(x, 'tri is', x * x * x)
