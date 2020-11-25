@@ -99,6 +99,8 @@ num_most_common = st.sidebar.slider(
 This tool can be used to see what are the top topics in each Masechet, what topics will appear in the next few Dapim of learning, or where else in the Masechet does the same topic appear.
 
 The default shows the top ten topics in 'Bava kamma'. Feel free to change the Masechet with the dropdown bar or change the different sliders to change the number of Dapim in each group - or the number of most common topics shown per group.
+
+Written by Hagai Guedalia
 '''
 
 topic_by_daf(chosen_book, step, num_most_common)
