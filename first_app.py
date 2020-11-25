@@ -1,11 +1,9 @@
 import streamlit as st
-# To make things easier later, we're also importing numpy and pandas for
-# working with sample data.
 import pandas as pd
 import plotly.graph_objects as go
 from collections import Counter
 
-@st.cache  # 👈 This function will be cached
+@st.cache  
 def gen_data():
     filename= "https://github.com/guedalia/binder/raw/master/talmud_topics_clean.csv"
     return pd.read_csv(filename)
@@ -76,21 +74,31 @@ def topic_by_daf(chosen_book= "Sukkah", step = 10, num_most_common = 1):
     )
     st.plotly_chart(fig)
 
-# @interact(chosen_book = set(topics["book"]),  step = (1, 200, 1), num_most_common=(1,10,1))
+book_list=list(set(topics["book"]))
 
+st.sidebar.title('Options')
 chosen_book = st.sidebar.selectbox(
     "Masechet",
-    list(set(topics["book"])),
+    book_list,
+    book_list.index('Bava Kamma')
 )
 step = st.sidebar.slider(
-    'Step',
+    'number of Dapim in each group',
     1, 200, 
     10
 )
 num_most_common = st.sidebar.slider(
-    'num_most_common',
+    'number of most common topics shown per group',
     1, 10,
     1
 )
+
+'''
+# Visualizing Talmud Topics in a Masechet
+
+This tool can be used to see what are the top topics in each Masechet, what topics will appear in the next few Dapim of learning, or where else in the Masechet does the same topic appear.
+
+The default shows the top ten topics in 'Bava kamma'. Feel free to change the Masechet with the dropdown bar or change the different sliders to change the number of Dapim in each group - or the number of most common topics shown per group.
+'''
 
 topic_by_daf(chosen_book, step, num_most_common)
