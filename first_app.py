@@ -75,32 +75,45 @@ def topic_by_daf(chosen_book= "Sukkah", step = 10, num_most_common = 1):
     st.plotly_chart(fig)
 
 book_list=list(set(topics["book"]))
+default_chosen_book='Bava Kamma'
+default_step=10
+default_num_most_common=1
 
 st.sidebar.title('Options')
 chosen_book = st.sidebar.selectbox(
     "Masechet",
     book_list,
-    book_list.index('Bava Kamma')
+    book_list.index(default_chosen_book)
 )
 step = st.sidebar.slider(
     'number of Dapim in each group',
     1, 200, 
-    10
+    default_step
 )
 num_most_common = st.sidebar.slider(
     'number of most common topics shown per group',
     1, 10,
-    1
+    default_num_most_common
 )
+
+expanded=False
+if (
+    (chosen_book == default_chosen_book) &
+    (step == default_step) &
+    (num_most_common == default_num_most_common)
+):
+    expanded=True
 
 '''
 # Visualizing Talmud Topics in a Masechet
-
-This tool can be used to see what are the top topics in each Masechet, what topics will appear in the next few Dapim of learning, or where else in the Masechet does the same topic appear.
-
-The default shows the top ten topics in 'Bava kamma'. Feel free to change the Masechet with the dropdown bar or change the different sliders to change the number of Dapim in each group - or the number of most common topics shown per group.
-
-Written by Hagai Guedalia
 '''
+with st.beta_expander("Details", expanded=expanded):
+    '''
+    This tool can be used to see what are the top topics in each Masechet, what topics will appear in the next few Dapim of learning, or where else in the Masechet does the same topic appear.
+
+    The default shows the top ten topics in 'Bava kamma'. Feel free to change the Masechet with the dropdown bar or change the different sliders to change the number of Dapim in each group - or the number of most common topics shown per group.
+
+    Written by Hagai Guedalia
+    '''
 
 topic_by_daf(chosen_book, step, num_most_common)
